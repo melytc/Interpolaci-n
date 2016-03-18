@@ -4,21 +4,42 @@
 //
 //  Melissa Janet Treviño Caballero     A00816715
 //  María Paula Anastás Benavides       A00817285
-//  Luis Felipe Salazar Valenzuela
+//  Luis Felipe Salazar Valenzuela      A00817158
 //
 //  Created by Melissa Trevino on 3/14/16.
 //  Copyright © 2016 Melissa Trevino. All rights reserved.
-//
-//  Método de Polinomio Único de Interpolación para 
-//
-//
+
 
 #include <iostream>
 #include <cmath>
 using namespace std;
 
-int main() {
-    
+// Función para validar que cada par sea distinto.
+bool EncuentraPar(int iX, int iY, int iMat[10][2], int iCont)
+{
+    for (int iR = 0; iR < iCont; iR++)
+    {
+        if (iMat[iR][0] == iX && iMat[iR][1] == iY)
+        {
+            cout << "ERROR: los valores de x,y ya existen." << endl;
+            return false;
+        }
+        else if (iMat[iR][0] == iX)
+        {
+            cout << "ERROR: el valor de x ya existe." << endl;
+            return false;
+        }
+        else if (iMat[iR][1] == iY)
+        {
+            cout << "ERROR: el valor de y ya existe." << endl;
+            return false;
+        }
+    }
+    return true;
+}
+
+int main()
+{
     // Declaración de variables.
     int iCantPares, iX, iY;
     int iMatPares[10][2];
@@ -33,9 +54,15 @@ int main() {
         cout << "Ingrese las coordenadas x,y \t";
         cin >> iX >> iY;
         
-        // Guardamos los valores en la matriz de pares.
-        iMatPares[iCont][0] = iX;
-        iMatPares[iCont][1] = iY;
+        // Si no se encuentran repeticiones
+        if (EncuentraPar(iX, iY, iMatPares, iCont))
+        {
+            // Guardamos los valores en la matriz de pares.
+            iMatPares[iCont][0] = iX;
+            iMatPares[iCont][1] = iY;
+        }
+        else
+            iCont--;    // Decrementamos el contador para no contar este ciclo específico.
     }
     
     // El grado de la matriz es de iCantPares - 1.
