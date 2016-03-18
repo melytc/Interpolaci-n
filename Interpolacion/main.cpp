@@ -186,18 +186,31 @@ int main()
     cout << "Como fueron "<< iCantPares << " datos, entonces por el método Polinomio Único de Interpolación," << endl;
     cout << "el polinomio obtenido es de grado " << iGrado << " y corresponde a:" << endl;
     cout << "P" << iGrado << "(x) = ";
-    cout << iMat[0][iCOL-1] * 1.0 / iMat[0][0];
+    double resp = iMat[0][iCOL-1] * 1.0 / iMat[0][0];
+    if (resp != 0)
+        cout << resp;
     
     for(int i = 1; i < iCantPares; i++)
     {
-        double resp = iMat[i][iCOL-1] * 1.0 / iMat[i][i];
-        if (resp < 0)
+        resp = iMat[i][iCOL-1] * 1.0 / iMat[i][i];
+        if (resp == 0)
+        {
+            // No mostrarlo
+        }
+        else if (resp == 1)
+        {
+            // Solo mostrar la x's.
+            if (i == 1)
+                cout << "x^" << i;
+            else
+                cout << " + x^" << i;
+        }
+        else if (resp < 0)
             cout << " - " << abs(resp) << "x^" << i;
         else
             cout << " + " << resp << "x^" << i;
     }
     cout << endl;
-    
     
     return 0;
 }
